@@ -17,43 +17,33 @@
             cursor: url('wand.png'), auto;
             overflow-x: hidden;
         }
-        nav {
-            position: absolute;
+
+        .image-container {
+            position: absolute; 
             bottom: 5%;
-            left: 37.5%;
-            transform: translateX(-50%);
-            cursor: url('wand.png'), auto;
-            white-space: nowrap;
-        }
-        nav a {
-            display: inline-block;
-            margin: 0 -2%;
-            vertical-align: top;
-        }
-        nav a img {
-            max-width: 75%;
-            height: auto;
-        }
-        .button1 {
+            width: 100%;
+            display: flex;
+            justify-content: space-evenly;
+        } 
+
+        .image-container a {
+            width: 20%;
+            text-align: center;
             cursor: url('wand.png'), auto; 
         }
-        .button2 {
-            cursor: url('wand.png'), auto;
-        }
-        .button3 {
-            cursor: url('wand.png'), auto;
-        }
-        .button4 {
-            cursor: url('wand.png'), auto;
+
+        .image-container img {
+            width: 100%; 
+            height: auto;
         }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="CalcPchem.html" class="button1"><img src="PChem Button.png" alt="PChem Button"></a>
-        <a href="Calcthermo.html" class="button2"><img src="Thermo Button.png" alt="Thermo Button"></a>
-        <a href="CalcAdmath.html" class="button3"><img src="AdMath Button.png" alt="AdMath Button"></a>
-        <a href="CalcMomentra.html" class="button4"><img src="Momentra Button.png" alt="Momentra Button"></a>
-    </nav>
+   <div class="image-container">
+        <a href="CalcPchem.html"><img src="PChem Button.png" alt="PChem Button"></a>
+        <a href="Calcthermo.html"><img src="Thermo Button.png" alt="Thermo Button"></a>
+        <a href="CalcAdmath.html" ><img src="AdMath Button.png" alt="AdMath Button"></a>
+        <a href="CalcMomentra.html" ><img src="Momentra Button.png" alt="Momentra Button"></a>
+    </div>
 </body>
 </html>
