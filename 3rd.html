@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('3rd.gif');
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 100vh;
+            position: relative;
+            cursor: url('wand.png'), auto;
+            overflow: hidden;
+        }
+
+        .container {
+            font-size: 100%;
+	    line-height: 100%;
+            max-width: 40%;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 50px;
+	    height:10%;
+	    left: 70%;
+        }
+
+        input[type="number"], input[type="text"] {
+            width: 19%;
+            height: 4%;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            font-family: Times New Roman;
+            font-size: 100%;
+            color: #4f2f01;
+            text-align: center;
+            cursor: url('wand.png'), auto;
+            line-height: 5%;
+        }
+
+        select, button {
+            width: 19%;
+            height: 4%;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            font-family: Times New Roman;
+            font-size: 90%;
+            color: #4f2f01;
+            text-align: center;
+            cursor: url('wand.png'), auto;
+	    line-height: 100%;
+        }
+
+        button {
+            width: 19%;
+            height: 4%;
+            line-height: 4%;
+            background-color: #967639;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-family: Times New Roman;
+            font-size: 100%;
+            text-align: center;
+            cursor: url('wand.png'), auto;
+            position: absolute;
+        }
+
+        button:hover {
+            background-color: #000000;
+            cursor: url('wand.png'), auto;
+        }
+
+        .extra-button img {
+            width: 12%;
+            height: auto;
+            position: absolute;
+            top: 65%;
+            right: 5%;
+            cursor: url('wand.png'), auto;
+        }
+
+        #result-container {
+            font-size: 100%;
+            font-family: Times New Roman;
+            color: #291800;
+            text-align: center;
+            padding: 10px;
+            width:40%;
+            height:10%;
+            line-height: 100%;
+	    top: 80%;
+	    position: absolute;
+	    left: 50%;
+	    transform: translateX(-50%);
+        }
+
+
+#result {
+            font-size: 120%;
+            font-family: Times New Roman;
+            color: #291800;
+            text-align: center;
+            padding: 10px;
+            width:42%;
+            height:13%;
+            background-image: url('banner.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            line-height: 15%;
+	    top: 79%;
+	    position: absolute;
+	    left: 50%;
+	    transform: translateX(-50%);
+         }
+
+ 
+    #molarMassDiv {
+        position: absolute;
+	color: black;
+    	font-size: 150%;
+        top: 41%;
+        right: 27%;
+	background-color:white;
+        text-align: center;
+         width:10%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+
+    }
+    #acentricFactorDiv {
+        position: absolute;
+	color: black;
+    	font-size: 150%;
+        top: 47.5%;
+        right: 27%;
+	background-color:white;
+        text-align: center;
+         width:8%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+    }
+    #PcDiv {
+              position: absolute;
+	color: black;
+    	font-size: 150%;
+        top: 60.5%;
+        right: 27%;
+	background-color:white;
+        text-align: center;
+         width:14%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+
+    }
+    #TcDiv {
+        position: absolute;
+	color: black;
+    	font-size: 150%;
+        top: 54%;
+        right: 27%;
+	background-color:white;
+        text-align: center;
+         width:14%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+    }	
+</style>
+
+</head>
+<body>
+  
+  <select id="compound" style="position: absolute; top: 44%; left: 30%;">>
+    <option value="Methane">Methane</option>
+    <option value="Ethane">Ethane</option>
+    <option value="Propane">Propane</option>
+    <option value="nButane">n-Butane</option>
+    <option value="nPentane">n-Pentane</option>
+    <option value="nHexane">n-Hexane</option>
+    <option value="nHeptane">n-Heptane</option>
+    <option value="nOctane">n-Octane</option>
+    <option value="nNonane">n-Nonane</option>
+    <option value="nDecane">n-Decane</option>
+    <option value="Isobutane">Isobutane</option>
+    <option value="Isooctane">Isooctane</option>
+    <option value="Cyclopentane">Cyclopentane</option>
+    <option value="Cyclohexane">Cyclohexane</option>
+    <option value="Methylcyclopentane">Methylcyclopentane</option>
+    <option value="Methylcyclohexane">Methylcyclohexane</option>
+    <option value="Ethylene">Ethylene</option>
+    <option value="Propylene">Propylene</option>
+    <option value="1Butene">1-Butene</option>
+    <option value="cis2Butene">cis-2-Butene</option>
+    <option value="trans2Butene">trans-2-Butene</option>
+    <option value="1Hexene">1-Hexene</option>
+    <option value="Isobutylene">Isobutylene</option>
+    <option value="13Butadiene">1,3-Butadiene</option>
+    <option value="Cyclohexene">Cyclohexene</option>
+    <option value="Acetylene">Acetylene</option>
+    <option value="Benzene">Benzene</option>
+    <option value="Toluene">Toluene</option>
+    <option value="Ethylbenzene">Ethylbenzene</option>
+    <option value="Cumene">Cumene</option>
+    <option value="oXylene">o-Xylene</option>
+    <option value="mXylene">m-Xylene</option>
+    <option value="pXylene">p-Xylene</option>
+    <option value="Styrene">Styrene</option>
+    <option value="Naphthalene">Naphthalene</option>
+    <option value="Biphenyl">Biphenyl</option>
+    <option value="Formaldehyde">Formaldehyde</option>
+    <option value="Acetaldehyde">Acetaldehyde</option>
+    <option value="Methyl acetate">Methyl acetate</option>
+    <option value="Ethyl acetate">Ethyl acetate</option>
+    <option value="Acetone">Acetone</option>
+    <option value="Methyl ethyl ketone">Methyl ethyl ketone</option>
+    <option value="Diethyl ether">Diethyl ether</option>
+    <option value="Methyl tbutyl ether">Methyl t-butyl ether</option>
+    <option value="Methanol">Methanol</option>
+    <option value="Ethanol">Ethanol</option>
+    <option value="1Propanol">1-Propanol</option>
+    <option value="1Butanol">1-Butanol</option>
+    <option value="1Hexanol">1-Hexanol</option>
+    <option value="2PropanolHexanol">2-Propanol</option>
+    <option value="Phenol">Phenol</option>
+    <option value="Ethylene glycol">Ethylene glycol</option>
+    <option value="Acetic acid">Acetic acid</option>
+    <option value="nButyric acid">n-Butyric acid</option>
+    <option value="Benzoic acid">Benzoic acid</option>
+    <option value="Acetonitrile">Acetonitrile</option>
+    <option value="Methylamine">Methylamine</option>
+    <option value="Ethylamine">Ethylamine</option>
+    <option value="Nitromethane">Nitromethane</option>
+    <option value="Carbon tetrachloride">Carbon tetrachloride</option>
+    <option value="Chloroform">Chloroform</option>
+    <option value="Dichloromethane">Dichloromethane</option>
+    <option value="Methyl chloride">Methyl chloride</option>
+    <option value="Ethyl chloride">Ethyl chloride</option>
+    <option value="Chlorobenzene">Chlorobenzene</option>
+    <option value="Tetrafluoroethane">Tetrafluoroethane</option>
+    <option value="Argon">Argon</option>
+    <option value="Krypton">Krypton</option>
+    <option value="Xenon">Xenon</option>
+    <option value="Helium 4">Helium 4</option>
+    <option value="Hydrogen">Hydrogen</option>
+    <option value="Oxygen">Oxygen</option>
+    <option value="Nitrogen">Nitrogen</option>
+    <option value="Air">Air</option>
+    <option value="Chlorine">Chlorine</option>
+    <option value="Carbon monoxide">Carbon monoxide</option>
+    <option value="Carbon dioxide">Carbon dioxide</option>
+    <option value="Carbon disulfide">Carbon disulfide</option>
+    <option value="Hydrogen sulfide">Hydrogen sulfide</option>
+    <option value="Sulfur dioxide">Sulfur dioxide</option>
+    <option value="Sulfur trioxide">Sulfur trioxide</option>
+    <option value="Nitric oxide (NO)">Nitric oxide (NO)</option>
+    <option value="Nitric oxide (N2O)">Nitric oxide (N2O)</option>
+    <option value="Hydrogen chloride">Hydrogen chloride</option>
+    <option value="Hydrogen cyanide">Hydrogen cyanide</option>
+    <option value="Water">Water</option>
+    <option value="Ammonia">Ammonia</option>
+    <option value="Nitric acid">Nitric acid</option>
+    <option value="Sulfuric acid">Sulfuric acid</option>
+  </select><br><br>
+
+  <div id="compoundDetails"></div><br>
+  
+   <input type="text" id="pressure" style="position: absolute; top: 52.5%; left: 30%;"> 
+ 
+  <input type="text" id="temperature" style="position: absolute; top: 61%; left:30%;">
+  
+<button id="calculate" style="position: absolute; top: 66%; left: 50%; transform: translateX(-50%);">Calculate</button><br><br>
+
+<div id="compoundDetails"></div>
+<div id="molarMassDiv"></div>
+<div id="acentricFactorDiv"></div>
+<div id="PcDiv"></div>
+<div id="TcDiv"></div> 
+
+
+  <div id="result"></div>
+  
+  <script>
+    var compounds = {
+      "Methane": {
+        "molarMass": 16.043,
+        "acentricFactor": 0.012,
+        "Tc": 190.6,
+        "Pc": 45.99 // bar
+      },
+      "Ethane": {
+        "molarMass": 30.070,
+        "acentricFactor": 0.100,
+        "Tc": 305.3,
+        "Pc": 48.72 // bar
+      },
+      "Propane": {
+        "molarMass": 44.097,
+        "acentricFactor": 0.100,
+        "Tc": 305.3,
+        "Pc": 48.72 // bar
+      },
+      "nButane": {
+        "molarMass": 58.123,
+        "acentricFactor": 0.200,
+        "Tc": 425.1,
+        "Pc": 37.96 // bar
+      },
+      "nPentane": {
+        "molarMass": 72.150,
+        "acentricFactor": 0.252,
+        "Tc": 469.7,
+        "Pc": 33.70 // bar
+      },
+      "nHexane": {
+        "molarMass": 86.177,
+        "acentricFactor": 0.301,
+        "Tc": 507.6,
+        "Pc": 30.25 // bar
+      },
+      "nHeptane": {
+        "molarMass": 100.204,
+        "acentricFactor": 0.350,
+        "Tc": 540.2,
+        "Pc": 27.40 // bar
+       },
+      "nOctane": {
+        "molarMass": 114.231,
+        "acentricFactor": 0.400,
+        "Tc": 568.7,
+        "Pc": 24.90 // bar     
+       },
+      "nNonane": {
+        "molarMass": 128.258,
+        "acentricFactor": 0.444,
+        "Tc": 594.6,
+        "Pc": 22.90 // bar  
+       },
+      "nDecane": {
+        "molarMass": 142.285,
+        "acentricFactor": 0.492,
+        "Tc": 617.7,
+        "Pc": 21.10 // bar 
+       },
+      "Isobutane": {
+        "molarMass": 58.123,
+        "acentricFactor": 0.181,
+        "Tc": 408.1,
+        "Pc": 36.48 // bar 
+       },
+      "Isooctane": {
+        "molarMass": 114.231,
+        "acentricFactor": 0.302,
+        "Tc": 544.0,
+        "Pc": 25.68 // bar 
+       },
+      "Cyclopentane": {
+        "molarMass": 70.134,
+        "acentricFactor": 0.196,
+        "Tc": 511.8,
+        "Pc": 45.02 // bar 
+       },
+      "Cyclohexane": {
+        "molarMass": 84.161,
+        "acentricFactor":0.210,
+        "Tc": 553.6,
+        "Pc": 40.73 // bar 
+       },
+      "Methylcyclopentane": {
+        "molarMass": 84.161,
+        "acentricFactor":0.230,
+        "Tc": 532.8,
+        "Pc": 37.85 // bar 
+       },
+      "Methylcyclohexane": {
+        "molarMass": 98.188,
+        "acentricFactor":0.235,
+        "Tc": 572.2,
+        "Pc": 34.71 // bar 
+       },
+      "Ethylene": {
+        "molarMass": 28.054,
+        "acentricFactor":0.087,
+        "Tc": 282.3,
+        "Pc": 50.40 // bar 
+       },
+      "Propylene": {
+        "molarMass": 42.081,
+        "acentricFactor":0.140,
+        "Tc": 365.6,
+        "Pc": 46.65 // bar
+       },
+      "1Butene": {
+        "molarMass": 56.108,
+        "acentricFactor":0.191,
+        "Tc": 420.0,
+        "Pc": 40.43 // bar
+       },
+      "cis2Butene": {
+        "molarMass": 56.108,
+        "acentricFactor":0.205,
+        "Tc": 435.6,
+        "Pc": 42.43 // bar
+       },
+      "trans2Butene": {
+        "molarMass": 56.108,
+        "acentricFactor":0.218,
+        "Tc": 428.6,
+        "Pc": 41.00 // bar
+       },
+      "1Hexene": {
+        "molarMass": 84.161,
+        "acentricFactor":0.280,
+        "Tc": 504.0,
+        "Pc": 31.40 // bar
+       },
+      "Isobutylene": {
+        "molarMass": 56.108,
+        "acentricFactor":0.194,
+        "Tc": 417.9,
+        "Pc": 40.00 // bar
+       },
+      "13Butadiene": {
+        "molarMass": 54.092,
+        "acentricFactor":0.190,
+        "Tc": 425.2,
+        "Pc": 42.77 // bar
+       },
+      "Cyclohexene": {
+        "molarMass": 82.145,
+        "acentricFactor":0.212,
+        "Tc": 560.4,
+        "Pc": 43.50 // bar
+       },
+      "Acetylene": {
+        "molarMass": 26.038,
+        "acentricFactor":0.187,
+        "Tc": 308.3,
+        "Pc": 61.39 // bar
+       },
+      "Benzene": {
+        "molarMass": 78.114,
+        "acentricFactor":0.210,
+        "Tc": 562.2,
+        "Pc": 48.98 // bar
+       },
+      "Toluene": {
+        "molarMass": 92.141,
+        "acentricFactor":0.262,
+        "Tc": 591.8,
+        "Pc": 41.06 // bar
+       },
+      "Ethylbenzene": {
+        "molarMass": 106.167,
+        "acentricFactor":0.303,
+        "Tc": 617.2,
+        "Pc": 36.06 // bar
+       },
+      "Cumene": {
+        "molarMass": 120.194,
+        "acentricFactor":0.326,
+        "Tc": 631.1,
+        "Pc": 32.09 // bar
+       },
+      "oXylene": {
+        "molarMass": 106.167,
+        "acentricFactor":0.310,
+        "Tc": 630.3,
+        "Pc": 37.34 // bar
+       },
+      "mXylene": {
+        "molarMass": 106.167,
+        "acentricFactor":0.326,
+        "Tc": 617.1,
+        "Pc": 35.36 // bar
+       },
+      "pXylene": {
+        "molarMass": 106.167,
+        "acentricFactor":0.322,
+        "Tc": 616.2,
+        "Pc": 35.11 // bar
+       },
+      "Styrene": {
+        "molarMass": 104.152,
+        "acentricFactor":0.297,
+        "Tc": 636.0,
+        "Pc": 38.40 // bar
+       },
+      "Naphthalene": {
+        "molarMass": 128.174,
+        "acentricFactor":0.302,
+        "Tc": 748.4,
+        "Pc": 40.51 // bar
+       },
+      "Biphenyl": {
+        "molarMass": 154.211,
+        "acentricFactor":154.211,
+        "Tc": 789.3,
+        "Pc": 38.50 // bar
+       },
+      "Formaldehyde": {
+        "molarMass": 30.026,
+        "acentricFactor":0.282,
+        "Tc": 408.0,
+        "Pc": 65.90 // bar
+       },
+      "Acetaldehyde": {
+        "molarMass": 44.053,
+        "acentricFactor":0.291,
+        "Tc": 466.0,
+        "Pc": 55.50 // bar
+       },
+      "Methyl acetate": {
+        "molarMass": 74.079,
+        "acentricFactor":0.331,
+        "Tc": 506.6,
+        "Pc": 47.50// bar
+       },
+      "Ethyl acetate": {
+        "molarMass": 88.106,
+        "acentricFactor":0.366,
+        "Tc": 523.3,
+        "Pc": 38.80// bar
+       },
+      "Acetone": {
+        "molarMass": 58.080,
+        "acentricFactor":0.307,
+        "Tc": 508.2,
+        "Pc": 47.01// bar
+       },
+      "Methyl ethyl ketone": {
+        "molarMass": 72.107,
+        "acentricFactor":0.323,
+        "Tc": 535.5,
+        "Pc": 41.50// bar
+       },
+      "Diethyl ether": {
+        "molarMass": 74.123,
+        "acentricFactor":0.281,
+        "Tc": 466.7,
+        "Pc": 36.40// bar
+       },
+      "Methyl tbutyl ether": {
+        "molarMass": 88.150,
+        "acentricFactor":0.266,
+        "Tc": 497.1,
+        "Pc": 34.30// bar
+       },
+      "Methanol": {
+        "molarMass": 32.042,
+        "acentricFactor":0.564,
+        "Tc": 512.6,
+        "Pc": 80.97// bar
+       },
+      "Ethanol": {
+        "molarMass": 46.069,
+        "acentricFactor":0.645,
+        "Tc": 513.9,
+        "Pc": 61.48// bar
+       },
+      "1Propanol": {
+        "molarMass": 60.096,
+        "acentricFactor":0.622,
+        "Tc": 536.8,
+        "Pc": 51.75// bar
+       },
+      "1Butanol": {
+        "molarMass": 74.123,
+        "acentricFactor":0.594,
+        "Tc": 563.1,
+        "Pc": 44.23// bar
+       },
+      "1Hexanol": {
+        "molarMass": 102.177,
+        "acentricFactor":0.579,
+        "Tc": 611.4,
+        "Pc": 35.10// bar
+       },
+      "2Propanol": {
+        "molarMass": 60.096,
+        "acentricFactor":0.668,
+        "Tc": 508.3,
+        "Pc": 47.62// bar
+       },
+      "Phenol": {
+        "molarMass": 94.113,
+        "acentricFactor":0.444,
+        "Tc": 694.3,
+        "Pc": 61.30// bar
+       },
+      "Ethylene glycol": {
+        "molarMass": 62.068,
+        "acentricFactor":0.487,
+        "Tc": 719.7,
+        "Pc": 77.00// bar
+       },
+      "Acetic acid": {
+        "molarMass": 60.053,
+        "acentricFactor":0.467,
+        "Tc": 592.0,
+        "Pc": 57.86// bar
+       },
+      "nButyric acid": {
+        "molarMass": 88.106,
+        "acentricFactor":0.681,
+        "Tc": 615.7,
+        "Pc": 40.64// bar
+       },
+      "Benzoic acid": {
+        "molarMass": 122.123,
+        "acentricFactor":0.603,
+        "Tc": 751.0,
+        "Pc": 44.70// bar
+       },
+      "Acetonitrile": {
+        "molarMass": 41.053,
+        "acentricFactor":0.338,
+        "Tc": 545.5,
+        "Pc": 48.30// bar
+       },
+      "Methylamine": {
+        "molarMass": 31.057,
+        "acentricFactor":0.281,
+        "Tc": 430.1,
+        "Pc": 74.60// bar
+       },
+      "Ethylamine": {
+        "molarMass": 45.084,
+        "acentricFactor":0.285,
+        "Tc": 456.2,
+        "Pc": 56.20// bar
+       },
+      "Nitromethane": {
+        "molarMass": 61.040,
+        "acentricFactor":0.348,
+        "Tc": 588.2,
+        "Pc": 63.10// bar
+       },
+      "Carbon tetrachloride": {
+        "molarMass": 153.822,
+        "acentricFactor":0.193,
+        "Tc": 556.4,
+        "Pc": 45.60// bar
+       },
+      "Chloroform": {
+        "molarMass": 119.377,
+        "acentricFactor":0.222,
+        "Tc": 536.4,
+        "Pc": 54.72// bar
+       },
+      "Dichloromethane": {
+        "molarMass": 84.932,
+        "acentricFactor":0.199,
+        "Tc": 510.0,
+        "Pc": 60.80// bar
+       },
+      "Methyl chloride": {
+        "molarMass": 50.488,
+        "acentricFactor":0.153,
+        "Tc": 416.3,
+        "Pc": 66.80// bar
+       },
+      "Ethyl chloride": {
+        "molarMass": 64.514,
+        "acentricFactor":0.190,
+        "Tc": 460.4,
+        "Pc": 52.70// bar
+       },
+      "Chlorobenzene": {
+        "molarMass": 112.558,
+        "acentricFactor":0.250,
+        "Tc": 632.4,
+        "Pc": 45.20// bar
+       },
+      "Tetrafluoroethane": {
+        "molarMass": 102.030,
+        "acentricFactor":0.327,
+        "Tc": 374.2,
+        "Pc": 40.60// bar
+       },
+      "Argon": {
+        "molarMass": 39.948,
+        "acentricFactor":0.000,
+        "Tc": 150.9,
+        "Pc": 48.98// bar
+       },
+      "Krypton": {
+        "molarMass": 83.800,
+        "acentricFactor":0.000,
+        "Tc": 209.4,
+        "Pc": 55.02// bar
+       },
+      "Xenon": {
+        "molarMass": 131.30,
+        "acentricFactor":0.000,
+        "Tc": 289.7,
+        "Pc": 58.40// bar
+       },
+      "Hydrogen": {
+        "molarMass": 2.016,
+        "acentricFactor":-0.216,
+        "Tc": 33.19,
+        "Pc": 13.13// bar
+       },
+      "Oxygen": {
+        "molarMass": 31.999,
+        "acentricFactor":0.022,
+        "Tc": 154.6,
+        "Pc": 50.43// bar
+       },
+      "Nitrogen": {
+        "molarMass": 28.014,
+        "acentricFactor":0.038,
+        "Tc": 126.2,
+        "Pc": 34.00// bar
+       },
+      "Air": {
+        "molarMass": 28.851,
+        "acentricFactor":0.035,
+        "Tc": 132.2,
+        "Pc": 37.45// bar
+       },
+      "Chlorine": {
+        "molarMass": 70.905,
+        "acentricFactor":0.069,
+        "Tc": 417.2,
+        "Pc": 77.10// bar
+       },
+      "Carbon monoxide": {
+        "molarMass": 28.010,
+        "acentricFactor":0.048,
+        "Tc": 132.9,
+        "Pc": 34.99// bar
+       },
+      "Carbon dioxide": {
+        "molarMass": 44.010,
+        "acentricFactor":0.224,
+        "Tc": 304.2,
+        "Pc": 73.83// bar
+       },
+      "Carbon disulfide": {
+        "molarMass": 76.143,
+        "acentricFactor":0.111,
+        "Tc": 552.0,
+        "Pc": 79.00// bar
+       },
+      "Hydrogen sulfide": {
+        "molarMass": 34.082,
+        "acentricFactor":0.094,
+        "Tc": 373.5,
+        "Pc": 89.63// bar
+       },
+      "Sulfur dioxide": {
+        "molarMass": 64.065,
+        "acentricFactor":0.245,
+        "Tc": 430.8,
+        "Pc": 78.84// bar
+       },
+      "Sulfur trioxide": {
+        "molarMass": 80.064,
+        "acentricFactor":0.424,
+        "Tc": 490.9,
+        "Pc": 82.10// bar
+       },
+      "Nitric oxide (NO)": {
+        "molarMass": 30.006,
+        "acentricFactor":0.583,
+        "Tc": 180.2,
+        "Pc": 64.80// bar
+       },
+      "Nitrous oxide (N2O)": {
+        "molarMass": 44.013,
+        "acentricFactor":0.141,
+        "Tc": 309.6,
+        "Pc": 72.45// bar
+       },
+      "Hydrogen chloride": {
+        "molarMass": 36.461,
+        "acentricFactor":0.132,
+        "Tc": 324.7,
+        "Pc": 83.10// bar
+       },
+      "Hydrogen cyanide": {
+        "molarMass": 27.026,
+        "acentricFactor":0.410,
+        "Tc": 456.7,
+        "Pc": 53.90// bar
+       },
+      "Water": {
+        "molarMass": 18.015,
+        "acentricFactor":0.345,
+        "Tc": 647.1,
+        "Pc": 220.55// bar
+       },
+      "Ammonia": {
+        "molarMass": 17.031,
+        "acentricFactor":0.253,
+        "Tc": 405.7,
+        "Pc": 112.80// bar
+       },
+      "Nitric acid": {
+        "molarMass": 63.013,
+        "acentricFactor":0.714,
+        "Tc": 520.0,
+        "Pc": 68.90// bar
+       },
+      "Sulfuric acid": {
+        "molarMass": 98.080,
+        "acentricFactor":0.000,
+        "Tc": 924.0,
+        "Pc": 64.00// bar
+       }
+    };
+
+    document.getElementById('calculate').addEventListener('click', function() {
+      var selectedCompound = document.getElementById('compound').value;
+      var pressure = parseFloat(document.getElementById('pressure').value);
+      var temperature = parseFloat(document.getElementById('temperature').value);
+      
+      // Retrieve compound properties
+      var compound = compounds[selectedCompound];
+      var molarMass = compound.molarMass;
+      var acentricFactor = compound.acentricFactor;
+      var Tc = compound.Tc;
+      var Pc = compound.Pc;
+      
+      // Calculate Pr and Tr
+      var Pr = pressure / Pc;
+      var Tr = temperature / Tc;
+      
+      // Calculate Bo and B'
+      var Bo = 0.083 - (0.422 / Math.pow(Tr, 1.6));
+      var B_prime = 0.139 - (0.172 / Math.pow(Tr, 4.2));
+
+      // Calculate Co and C'
+      var Co = 0.01407 + (0.02432/Tr) - (0.00313 / Math.pow(Tr, 10.5));
+      var C_prime = -0.02676 + (0.05539/Math.pow(Tr, 2.7)) - (0.00242 / Math.pow(Tr, 10.5));
+
+      // Calculate Z
+      var Z = 1 + (Bo + acentricFactor * B_prime) * (Pr / Tr) + (Co + acentricFactor * C_prime) * Math.pow((Pr / Tr), 2);
+
+    var molarMassDiv = document.getElementById('molarMassDiv');
+    var acentricFactorDiv = document.getElementById('acentricFactorDiv');
+    var PcDiv = document.getElementById('PcDiv');
+    var TcDiv = document.getElementById('TcDiv');
+
+    if (compounds.hasOwnProperty(selectedCompound)) {
+        var compound = compounds[selectedCompound];
+        molarMassDiv.innerHTML = compound.molarMass + " g/mol";
+        acentricFactorDiv.innerHTML = compound.acentricFactor;
+        PcDiv.innerHTML = compound.Pc + " bar";
+        TcDiv.innerHTML = compound.Tc + " K";
+    } else {
+        molarMassDiv.innerHTML = "";
+        acentricFactorDiv.innerHTML = "";
+        PcDiv.innerHTML = "";
+        TcDiv.innerHTML = "";
+    }
+
+      // Display the result
+      var resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = `<p><br><br>Pr: ${Pr.toFixed(4)} & Tr: ${Tr.toFixed(4)}</p>
+                             <p>Bo: ${Bo.toFixed(4)} & B': ${B_prime.toFixed(4)}</p>
+                             <p>Co: ${Co.toFixed(4)} & C_prime: ${C_prime.toFixed(4)}</p>
+                             <p>Z: ${Z.toFixed(4)}</p>`;
+    });
+  </script>
+
+<a href="calcthermo.html" class="extra-button">
+    <img src="back.png" alt="Extra Button">
+</a>
+</body>
+</html>

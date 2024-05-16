@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Euler's Method</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.0.0/math.min.js"></script>
+    <script>
+        function evaluateFunction(f, x, y) {
+            try {
+                return math.evaluate(f, {x: x, y: y});
+            } catch (error) {
+                alert("Error in function expression. Please check your input.");
+                return NaN;
+            }
+        }
+
+        function eulerMethod(f, x0, y0, h, steps) {
+            let x = x0;
+            let y = y0;
+            const results = [{x: x0, y: y0}];
+
+            for (let i = 0; i < steps; i++) {
+                const dydx = evaluateFunction(f, x, y);
+                if (isNaN(dydx)) {
+                    return [];
+                }
+                y += h * dydx;
+                x += h;
+                results.push({x: x, y: y});
+            }
+
+            return results;
+        }
+
+        function calculate() {
+            const f = document.getElementById('function').value;
+            const x0 = parseFloat(document.getElementById('x0').value);
+            const y0 = parseFloat(document.getElementById('y0').value);
+            const h = parseFloat(document.getElementById('h').value);
+            const steps = parseInt(document.getElementById('steps').value);
+
+
+            const results = eulerMethod(f, x0, y0, h, steps);
+            if (results.length > 0) {
+                displayResults(results);
+            } else {
+                alert("Error in calculation. Please check your inputs and function.");
+            }
+        }
+
+        function displayResults(results) {
+            const resultDiv = document.getElementById('results');
+            resultDiv.innerHTML = '';
+   	    const tableContainer = document.getElementById('table-container');
+  	    tableContainer.innerHTML = '';
+            const table = document.createElement('table');
+            table.style.backgroundColor = 'white';
+
+            const xRow = document.createElement('tr');
+            const yRow = document.createElement('tr');
+
+            const xLabelCell = document.createElement('td');
+            xLabelCell.textContent = 'x';
+            xLabelCell.style.fontWeight = 'bold';
+            xRow.appendChild(xLabelCell);
+
+            const yLabelCell = document.createElement('td');
+            yLabelCell.textContent = 'y';
+            yLabelCell.style.fontWeight = 'bold';
+            yRow.appendChild(yLabelCell);
+
+            results.forEach(point => {
+                const xCell = document.createElement('td');
+                const yCell = document.createElement('td');
+                xCell.textContent = point.x.toFixed(4);
+                yCell.textContent = point.y.toFixed(4);
+                xRow.appendChild(xCell);
+                yRow.appendChild(yCell);
+            });
+
+            table.appendChild(xRow);
+            table.appendChild(yRow);
+    	    tableContainer.appendChild(table);
+        }
+    </script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('euler.gif');
+	    background-size: cover;
+            background-repeat: no-repeat;
+            height: 100vh;
+            position: relative;
+            cursor: url('wand.png'), auto;
+            overflow-y: hidden;
+	    overflow-x: hidden;
+        }
+
+        .container {
+            height:10%;
+	    top: 79%;
+	    max-width: 45%;
+	    margin: 0 auto;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 50px;
+        }
+
+
+        input[type="number"], input[type="text"] {
+            width: 19%;
+            height: 5%;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            font-family: Times New Roman;
+            font-size: 100%;
+            color: #4f2f01;
+            text-align: center;
+            cursor: url('wand.png'), auto;
+            line-height: 5%;
+        }
+
+        button {
+            width: 19%;
+            height: 5%;
+            line-height: 5%;
+            background-color: #967639;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-family: Times New Roman;
+            font-size: 100%;
+            text-align: center;
+            cursor: url('wand.png'), auto;
+            position: absolute;
+        }
+
+        button:hover {
+            background-color: #000000;
+            cursor: url('wand.png'), auto;
+        }
+
+
+
+        .extra-button img {
+            width: 12%;
+            height: auto;
+            position: absolute;
+            top: 65%;
+            right: 5%;
+            cursor: url('wand.png'), auto;
+        }
+
+#results-container, #table-container {
+    max-width: 45%;
+    height: 10%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    text-align: center;
+    position: relative;
+}
+
+        table {
+            width: 45%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+    
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <form onsubmit="event.preventDefault(); calculate();">
+        <input type="text" id="function" placeholder="e.g., x + y" style="position: absolute; top: 37.5%; left: 55%;" required>
+        <input type="number" id="x0" step="any" placeholder="Initial x" style="position: absolute; top: 43.5%; left: 39%; width: 35%;" required>
+        <input type="number" id="y0" step="any" placeholder="Initial y" style="position: absolute; top: 49.5%; left: 39%; width: 35%;" required>
+        <input type="number" id="h" step="any" placeholder="Step size" style="position: absolute; top: 55.5%; left: 39%; width: 35%;" required>
+        <input type="number" id="steps" placeholder="Number of steps" style="position: absolute; top: 61.5%; left: 43%; width: 31%;" required>
+        <button type="submit" style="position: absolute; top: 70%; left: 57%; transform: translateX(-50%);">Calculate</button>
+    </form>
+
+    <div id="results-container" style="position: absolute; top: 79%; left: 50%; transform: translateX(-50%);"></div>
+   <div id="table-container" style="position: absolute; top: 79%; left: 50%; transform: translateX(-50%);"></div>
+    <div id="results"></div>
+
+</div>
+
+<a href="calcAdmath.html" class="extra-button">
+    <img src="back.png" alt="Extra Button">
+</a>
+</body>
+</html>

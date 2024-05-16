@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simpson's 3/8 Rule</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.0.0/math.min.js"></script>
+    <script>
+        function evaluateFunction(f, x) {
+            try {
+                return math.evaluate(f, {x: x});
+            } catch (error) {
+                alert("Error in function expression. Please check your input.");
+                return NaN;
+            }
+        }
+
+        function simpsonsThreeEighthsRule(f, a, b, n) {
+            if (n % 3 !== 0) {
+                alert("Number of subintervals must be a multiple of 3 for Simpson's 3/8 rule.");
+                return NaN;
+            }
+
+            const h = (b - a) / n;
+            let integral = 0;
+
+            for (let i = 0; i <= n; i++) {
+                const x = a + i * h;
+                const fx = evaluateFunction(f, x);
+                if (isNaN(fx)) {
+                    return NaN;
+                }
+
+                if (i === 0 || i === n) {
+                    integral += fx;
+                } else if (i % 3 === 0) {
+                    integral += 2 * fx;
+                } else {
+                    integral += 3 * fx;
+                }
+            }
+
+            integral *= (3 * h / 8);
+            return integral;
+        }
+
+        function calculate() {
+            const f = document.getElementById('function').value;
+            const a = parseFloat(document.getElementById('a').value);
+            const b = parseFloat(document.getElementById('b').value);
+            const n = parseInt(document.getElementById('n').value);
+
+            const result = simpsonsThreeEighthsRule(f, a, b, n);
+            if (!isNaN(result)) {
+                displayResult(result);
+            } else {
+                alert("Error in calculation. Please check your inputs and function.");
+            }
+        }
+
+        function displayResult(result) {
+            const resultDiv = document.getElementById('results');
+            resultDiv.innerHTML = '';
+
+            const resultText = document.createElement('p');
+            resultText.textContent = `${result.toFixed(4)}`;
+            resultDiv.appendChild(resultText);
+        }
+    </script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('simpsons.gif');
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 100vh;
+            position: relative;
+            cursor: url('wand.png'), auto;
+            overflow: hidden;
+        }
+
+        .container {
+            font-size: 100%;
+	    line-height: 100%;
+            max-width: 40%;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 50px;
+	    height:10%;
+        }
+
+        input[type="number"], input[type="text"] {
+            width: 30%;
+            height: 5%;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            font-family: Times New Roman;
+            font-size: 100%;
+            color: #4f2f01;
+            text-align: center;
+            cursor: url('wand.png'), auto;
+            line-height: 5%;
+        }
+
+
+        button {
+            width: 19%;
+            height: 4%;
+            line-height: 4%;
+            background-color: #967639;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-family: Times New Roman;
+            font-size: 100%;
+            text-align: center;
+            cursor: url('wand.png'), auto;
+            position: absolute;
+        }
+
+        button:hover {
+            background-color: #000000;
+            cursor: url('wand.png'), auto;
+        }
+
+        .extra-button img {
+            width: 12%;
+            height: auto;
+            position: absolute;
+            top: 65%;
+            right: 5%;
+            cursor: url('wand.png'), auto;
+        }
+
+        #results-container {
+            font-size: 100%;
+            font-family: Times New Roman;
+            color: #291800;
+            text-align: center;
+            padding: 10px;
+            width:40%;
+            height:10%;
+            background-image: url('banner.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            line-height: 10%;
+	    top: 78%;
+	    position: absolute;
+	    left: 50%;
+	    transform: translateX(-50%);
+        }
+
+#results {
+    font-family: Times New Roman;
+    font-size: 150%;
+    line-height: 10%;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form onsubmit="event.preventDefault(); calculate();">
+            <input type="text" id="function" placeholder="e.g., x^2" style="position: absolute; top: 36.5%; left: 42%;" required>
+            <input type="number" id="b" step="any" placeholder="Upper limit" style="position: absolute; top: 43.75%; left: 42%;" required>
+            <input type="number" id="a" step="any" placeholder="Lower limit" style="position: absolute; top: 51%; left: 42%;" required>
+            <input type="number" id="n" step="1" placeholder="Number of subintervals" style="position: absolute; top: 58.25%; left: 52%; width:20%;" required>
+            <button type="submit" style="position: absolute; top: 65%; left: 50%; transform: translateX(-50%);">Calculate</button>
+        </form>
+
+        <div id="results-container">
+            <div id="results"></div>
+            <p id="result-container" style="position: absolute; top: 75%; left: 50%; transform: translateX(-50%);"></p>
+        </div>
+
+        <a href="calcAdmath.html" class="extra-button">
+            <img src="back.png" alt="Extra Button">
+        </a>
+    </div>
+</body>
+</html>
